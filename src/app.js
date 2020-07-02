@@ -63,7 +63,6 @@ app.get("/weather",(req,res)=>{
             "weather":forecastdata,
             "Address":req.query.address
         })
-          
         })
       })
 })
