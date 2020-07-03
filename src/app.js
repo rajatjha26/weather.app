@@ -12,16 +12,13 @@ const dirpath=path.join(__dirname,'../public/')
 const viewspath=path.join(__dirname,"../templates/views")
 const partialpath=path.join(__dirname,"../templates/partials")
 
-
 //handlebar engine config and views path 
 app.set("view engine","hbs")
 app.set("views",viewspath)
 hbs.registerPartials(partialpath)
 
-
 //static file serve
 app.use(express.static(dirpath))
-
 
 app.get("",(req,res)=>{
     res.render("index",{
@@ -30,6 +27,7 @@ app.get("",(req,res)=>{
     })
 
 })
+
 app.get("/about",(req,res)=>{
     res.render("about",{
         "title":"About",
@@ -37,6 +35,7 @@ app.get("/about",(req,res)=>{
     })
 
 })
+
 app.get("/help",(req,res)=>{
     res.render("help",{
         "title":"Help",
@@ -45,6 +44,7 @@ app.get("/help",(req,res)=>{
     })
 
 })
+
 app.get("/weather",(req,res)=>{
     if(!req.query.address){
         return res.send({
@@ -67,6 +67,15 @@ app.get("/weather",(req,res)=>{
         })
       })
 })
+
+app.get("/about/*",(req,res)=>{
+    res.render("error",{
+        "title":"404",
+        "name":"Rajat jha",
+        "errorMessage":"About article not found"
+    })
+})
+
 app.get("/help/*",(req,res)=>{
     res.render("error",{
         "title":"404",
@@ -74,6 +83,7 @@ app.get("/help/*",(req,res)=>{
         "errorMessage":"Help article not found"
     })
 })
+
 app.get("*",(req,res)=>{
     res.render("error",{
         "title":"404",
@@ -83,5 +93,5 @@ app.get("*",(req,res)=>{
 })
 
 app.listen(port,()=>{
-    console.log('app is listening on port '+port)
+    console.log('app is listening on port '+ port)
 })
